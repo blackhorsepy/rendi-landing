@@ -1,377 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rendi — Próximamente</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <!-- DM Sans: display font with character. Figtree: clean body -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,300&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENDI — Capital Inteligente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #19e0a8; }
+        body { 
+            background-color: #000; 
+            font-family: 'Inter', sans-serif;
+            color: white;
+            cursor: crosshair;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .dollar-bg {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), 
+                              url('https://www.publicdomainpictures.net/pictures/240000/velka/us-dollar-bill-background.jpg');
+            background-size: auto, cover;
+            background-position: center;
+            background-blend-mode: multiply;
+            filter: brightness(0.12) contrast(1.8) grayscale(100%); 
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    :root {
-      --display:   'DM Sans', sans-serif;
-      --body:      'Figtree', sans-serif;
-      --accent:    #19e0a8;
-      --accent-2:  #0ec494;
-      --blue:      #4f8ef7;
-      --bg:        #06080f;
-      --surface:   rgba(255,255,255,0.03);
-      --border:    rgba(255,255,255,0.06);
-      --text:      #f5f7fa;
-      --muted:     rgba(245,247,250,0.44);
-      --muted-2:   rgba(245,247,250,0.18);
-    }
+        .noise {
+            position: fixed;
+            inset: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
 
-    html, body {
-      width:100%; height:100%;
-      background:var(--bg);
-      overflow:hidden;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+        #cursor-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(25, 224, 168, 0.18) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+            mix-blend-mode: screen;
+            will-change: transform;
+        }
 
-    /* ─── SHELL ─── */
-    .shell {
-      position:relative; width:100vw; height:100vh;
-      display:flex; align-items:center; justify-content:center;
-      overflow:hidden;
-    }
-
-    /* ─── LAYERED BACKGROUND ─── */
-    /* deep space gradient */
-    .bg-layer {
-      position:absolute; inset:0; pointer-events:none;
-      background:
-        radial-gradient(ellipse 100% 60% at 50% -10%, rgba(25,224,168,0.065) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 55% at 92% 90%,  rgba(79,142,247,0.10) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 50% at 0%  80%,  rgba(25,224,168,0.04) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 40% at 70% 20%,  rgba(79,142,247,0.05) 0%, transparent 50%),
-        linear-gradient(170deg, #0a1020 0%, #06080f 45%, #080c18 100%);
-    }
-
-    /* fine dot grid */
-    .dots {
-      position:absolute; inset:0; pointer-events:none;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size:32px 32px;
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
-      mask-image:         radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
-    }
-
-    /* ambient orbs */
-    .orb { position:absolute; border-radius:50%; pointer-events:none; }
-    .o1 {
-      width:900px; height:900px; top:-350px; left:-280px;
-      background:radial-gradient(circle, rgba(25,224,168,0.055) 0%, transparent 55%);
-      filter:blur(120px);
-      animation: f1 22s ease-in-out infinite alternate;
-    }
-    .o2 {
-      width:600px; height:600px; bottom:-200px; right:-150px;
-      background:radial-gradient(circle, rgba(79,142,247,0.09) 0%, transparent 55%);
-      filter:blur(100px);
-      animation: f2 16s ease-in-out infinite alternate;
-    }
-    .o3 {
-      width:420px; height:420px; top:35%; right:8%;
-      background:radial-gradient(circle, rgba(25,224,168,0.04) 0%, transparent 60%);
-      filter:blur(90px);
-      animation: f1 12s ease-in-out 2s infinite alternate-reverse;
-    }
-    @keyframes f1 { to { transform:translate(52px,38px); } }
-    @keyframes f2 { to { transform:translate(-40px,-28px); } }
-
-    /* mouse reactive glow */
-    #mglow { position:absolute; inset:0; pointer-events:none; transition:background .3s ease; }
-
-    /* edge vignette */
-    .vig {
-      position:absolute; inset:0; pointer-events:none;
-      background:radial-gradient(ellipse 90% 85% at 50% 50%, transparent 30%, rgba(6,8,15,0.75) 100%);
-    }
-
-    /* thin horizontal rules — editorial touch */
-    .rule {
-      position:absolute; left:5%; right:5%; height:1px; pointer-events:none;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, transparent);
-    }
-    .rt { top:12%; } .rb { bottom:12%; }
-
-    /* corner brackets */
-    .corn { position:absolute; width:18px; height:18px;
-            border-style:solid; border-color:rgba(25,224,168,0.12); border-width:0; }
-    .ctl { top:24px; left:24px;   border-top-width:1px; border-left-width:1px; }
-    .ctr { top:24px; right:24px;  border-top-width:1px; border-right-width:1px; }
-    .cbl { bottom:24px; left:24px;  border-bottom-width:1px; border-left-width:1px; }
-    .cbr { bottom:24px; right:24px; border-bottom-width:1px; border-right-width:1px; }
-
-    /* ─── CONTENT ─── */
-    .content {
-      position:relative; z-index:10;
-      display:flex; flex-direction:column;
-      align-items:flex-start;
-      width:100%; max-width:800px;
-      padding:0 40px;
-    }
-
-    /* ─── LOGO — match dashboard exactly ─── */
-    /* dashboard: 34px box, borderRadius 10px, fontWeight 800, fontSize 16px
-       we scale slightly for hero presence but keep same proportions */
-    .logo-wrap {
-      display:flex; align-items:center; gap:10px;
-      margin-bottom:52px;
-      opacity:0; animation: rise .7s cubic-bezier(.22,1,.36,1) .05s forwards;
-    }
-    .logo-icon {
-      width:36px; height:36px; border-radius:10px; flex-shrink:0;
-      background:var(--accent);
-      display:flex; align-items:center; justify-content:center;
-      font-family:var(--display); font-weight:800; font-size:17px;
-      color:#000; letter-spacing:-.02em;
-      box-shadow:0 0 20px rgba(25,224,168,0.35), 0 0 48px rgba(25,224,168,0.12);
-    }
-    .logo-word {
-      font-family:var(--display); font-weight:700; font-size:21px;
-      letter-spacing:-.03em; color:var(--text); line-height:1;
-    }
-
-    /* ─── EYEBROW LABEL ─── */
-    .eyebrow {
-      display:inline-flex; align-items:center; gap:7px;
-      padding:4px 12px 4px 8px; border-radius:99px;
-      border:1px solid rgba(25,224,168,0.20);
-      background:rgba(25,224,168,0.055);
-      font-family:var(--body); font-size:10.5px; font-weight:500;
-      color:var(--accent); letter-spacing:.11em; text-transform:uppercase;
-      margin-bottom:24px;
-      opacity:0; animation: rise .6s cubic-bezier(.22,1,.36,1) .18s forwards;
-    }
-    .dot {
-      width:6px; height:6px; border-radius:50%;
-      background:var(--accent); box-shadow:0 0 6px var(--accent);
-      animation: blink 2.6s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
-
-    /* ─── HEADLINE ─── */
-    /* DM Sans 900 — tight tracking, gradient text white→mint */
-    h1 {
-      font-family:var(--display);
-      font-size:clamp(2.6rem, 7.5vw, 5.2rem);
-      font-weight:900;
-      line-height:1.03;
-      letter-spacing:-.045em;
-      margin-bottom:22px;
-      width:100%;
-      /* gradient: crisp white → slight warm white → mint */
-      background:linear-gradient(
-        130deg,
-        #ffffff  0%,
-        #f0faf7 48%,
-        #19e0a8 100%
-      );
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      opacity:0; animation: rise .8s cubic-bezier(.22,1,.36,1) .32s forwards;
-    }
-
-    /* ─── SUBHEADLINE ─── */
-    /* Figtree 300 — light, generous leading, very legible */
-    .sub {
-      font-family:var(--body);
-      font-size:clamp(.9rem, 1.6vw, 1.05rem);
-      font-weight:300;
-      line-height:1.75;
-      color:var(--muted);
-      letter-spacing:-.005em;
-      max-width:500px;
-      margin-bottom:44px;
-      opacity:0; animation: rise .7s cubic-bezier(.22,1,.36,1) .48s forwards;
-    }
-
-    /* ─── BUTTONS ─── */
-    .btns {
-      display:flex; gap:12px; flex-wrap:wrap;
-      opacity:0; animation: rise .65s cubic-bezier(.22,1,.36,1) .62s forwards;
-    }
-
-    /* CTA primario — gradient fill, DM Sans 600 */
-    .btn-p {
-      display:inline-flex; align-items:center; gap:9px;
-      padding:13px 26px; border-radius:11px;
-      background:linear-gradient(135deg, #19e0a8 0%, #0ec494 100%);
-      color:#021a0e;
-      font-family:var(--display); font-size:.88rem; font-weight:700;
-      letter-spacing:-.01em;
-      border:none; cursor:pointer; text-decoration:none;
-      box-shadow:0 0 24px rgba(25,224,168,0.30), inset 0 1px 0 rgba(255,255,255,0.20);
-      transition:transform .17s ease, box-shadow .17s ease, filter .17s;
-    }
-    .btn-p:hover {
-      transform:translateY(-2px) scale(1.02);
-      box-shadow:0 0 44px rgba(25,224,168,0.52), inset 0 1px 0 rgba(255,255,255,0.20);
-      filter:brightness(1.06);
-    }
-    .btn-p svg { transition:transform .17s ease; }
-    .btn-p:hover svg { transform:translateX(3px); }
-
-    /* CTA secundario — ghost, Figtree 500 */
-    .btn-s {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:13px 22px; border-radius:11px;
-      background:rgba(255,255,255,0.025);
-      color:var(--muted);
-      font-family:var(--body); font-size:.88rem; font-weight:500;
-      letter-spacing:-.01em;
-      border:1px solid rgba(255,255,255,0.08);
-      cursor:default;
-      transition:border-color .2s, color .2s, background .2s;
-    }
-    .btn-s:hover {
-      border-color:rgba(255,255,255,0.13);
-      color:rgba(245,247,250,.55);
-      background:rgba(255,255,255,0.04);
-    }
-
-    /* ─── BOTTOM STATS/TAGS — adds credibility ─── */
-    .footer {
-      position:absolute; bottom:28px; left:0; right:0;
-      display:flex; align-items:center; justify-content:center; gap:0;
-      opacity:0; animation: rise .6s ease .85s forwards;
-    }
-    .stat {
-      display:flex; flex-direction:column; align-items:center;
-      padding:0 28px;
-      border-right:1px solid rgba(255,255,255,0.07);
-    }
-    .stat:last-child { border-right:none; }
-    .stat-val {
-      font-family:var(--display); font-size:14px; font-weight:700;
-      color:var(--text); letter-spacing:-.02em; line-height:1;
-      margin-bottom:3px;
-    }
-    .stat-lbl {
-      font-family:var(--body); font-size:9px; font-weight:400;
-      color:var(--muted-2); letter-spacing:.12em; text-transform:uppercase;
-    }
-
-    /* ─── KEYFRAMES ─── */
-    @keyframes rise {
-      from { opacity:0; transform:translateY(16px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media(max-width:560px) {
-      .corn,.rule { display:none; }
-      .content { padding:0 22px; }
-      .logo-wrap { margin-bottom:40px; }
-      .btns { flex-direction:column; align-items:stretch; }
-      .btn-p,.btn-s { justify-content:center; }
-      .footer { gap:0; }
-      .stat { padding:0 18px; }
-      .stat-val { font-size:12px; }
-    }
-  </style>
+        .text-reveal {
+            animation: reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+        @keyframes reveal {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .line-grow {
+            inline-size: 0;
+            animation: grow 1.5s ease-out 0.5s forwards;
+        }
+        @keyframes grow { to { inline-size: 100%; } }
+    </style>
 </head>
-<body>
-<div class="shell">
+<body class="min-h-screen flex flex-col justify-between p-6 md:p-12">
+    
+    <div class="dollar-bg"></div>
+    <div class="noise"></div>
+    <div id="cursor-glow"></div>
 
-  <!-- background -->
-  <div class="bg-layer"></div>
-  <div id="mglow"></div>
-  <div class="dots"></div>
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-  <div class="vig"></div>
-  <div class="rule rt"></div>
-  <div class="rule rb"></div>
+    <header class="relative z-10 flex justify-between items-start w-full">
+        <div class="space-y-1">
+            <div class="text-[10px] tracking-[0.5em] font-black text-[#19e0a8] uppercase">Rendi Systems ©</div>
+            <div class="mono text-[9px] opacity-40 uppercase tracking-widest">Protocolo de activos v.01</div>
+        </div>
+        <div class="text-right flex flex-col items-end">
+            <div class="h-px w-24 bg-white/20 mb-2 line-grow"></div>
+            <div class="mono text-[9px] opacity-40 uppercase tracking-tighter">USD Compliant / Reserve Tier 1</div>
+        </div>
+    </header>
 
-  <!-- corners -->
-  <div class="corn ctl"></div>
-  <div class="corn ctr"></div>
-  <div class="corn cbl"></div>
-  <div class="corn cbr"></div>
+    <main class="relative z-10 w-full">
+        <div class="overflow-hidden">
+            <h1 class="text-[13vw] md:text-[10vw] font-black leading-[0.85] tracking-tighter text-reveal select-none uppercase">
+                Tu plata,<br>redefinida<span class="text-[#19e0a8]">.</span>
+            </h1>
+        </div>
 
-  <!-- ─── main ─── -->
-  <div class="content">
+        <div class="mt-8 flex flex-col md:flex-row items-start md:items-end gap-12">
+            <div class="max-w-xs">
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed font-light border-l border-[#19e0a8]/30 pl-6 text-reveal" style="animation-delay: 0.2s;">
+                    Arquitectura financiera para el capital moderno. Claridad absoluta, rendimiento global sin fricción.
+                </p>
+            </div>
 
-    <!-- logo — same proportions as dashboard sidebar -->
-    <div class="logo-wrap">
-      <div class="logo-icon">R</div>
-      <span class="logo-word">Rendi</span>
-    </div>
+            <div class="flex flex-wrap gap-6 items-center text-reveal" style="animation-delay: 0.4s;">
+                <a href="#" class="group relative px-10 py-4 bg-[#19e0a8] text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(25,224,168,0.3)]">
+                    LISTA DE ESPERA
+                </a>
+                <a href="#" class="mono text-[10px] tracking-[0.3em] font-bold border-b border-white/10 pb-1 hover:border-[#19e0a8] hover:text-[#19e0a8] transition-all uppercase">
+                    Dashboard →
+                </a>
+            </div>
+        </div>
+    </main>
 
-    <!-- eyebrow -->
-    <div class="eyebrow">
-      <span class="dot"></span>Próximamente
-    </div>
+    <footer class="relative z-10 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-end gap-6 w-full">
+        <div class="flex gap-12">
+            <div class="space-y-1">
+                <p class="mono text-[9px] opacity-40 uppercase tracking-widest">Reserva</p>
+                <p class="text-xs font-bold tracking-tight uppercase">Fed Standard</p>
+            </div>
+            <div class="space-y-1">
+                <p class="mono text-[9px] opacity-40 uppercase tracking-widest">Estado</p>
+                <p class="text-xs font-bold tracking-tight flex items-center gap-2 uppercase">
+                    Beta Privada <span class="h-1.5 w-1.5 bg-[#19e0a8] rounded-full animate-pulse shadow-[0_0_10px_#19e0a8]"></span>
+                </p>
+            </div>
+        </div>
 
-    <!-- h1 gradient -->
-    <h1>La nueva forma de<br>entender tu plata.</h1>
+        <div class="hidden md:block">
+            <span class="text-[6vw] font-black opacity-[0.03] select-none tracking-tighter uppercase">Rendi.Finance</span>
+        </div>
+    </footer>
 
-    <!-- sub — Figtree light -->
-    <p class="sub">
-      Una experiencia más clara, más elegante y más inteligente
-      para organizar tus finanzas personales.
-    </p>
-
-    <!-- CTAs -->
-    <div class="btns">
-      <a href="/dashboard" class="btn-p">
-        Ir al dashboard
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </a>
-      <button class="btn-s" disabled>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-        Próximamente
-      </button>
-    </div>
-
-  </div>
-
-  <!-- bottom stats bar -->
-  <div class="footer">
-    <div class="stat">
-      <span class="stat-val">WhatsApp</span>
-      <span class="stat-lbl">Registro rápido</span>
-    </div>
-    <div class="stat">
-      <span class="stat-val">IA integrada</span>
-      <span class="stat-lbl">Categoriza solo</span>
-    </div>
-    <div class="stat">
-      <span class="stat-val">Dashboard</span>
-      <span class="stat-lbl">Visión completa</span>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  const mglow = document.getElementById('mglow');
-  document.addEventListener('mousemove', e => {
-    const px = (e.clientX / innerWidth  * 100).toFixed(1);
-    const py = (e.clientY / innerHeight * 100).toFixed(1);
-    mglow.style.background =
-      `radial-gradient(ellipse 44% 40% at ${px}% ${py}%,
-        rgba(25,224,168,0.065) 0%,
-        rgba(79,142,247,0.035) 45%,
-        transparent 68%)`;
-  });
-</script>
+    <script>
+        const glow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            window.requestAnimationFrame(() => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        });
+    </script>
 </body>
 </html>
