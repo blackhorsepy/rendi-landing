@@ -52,6 +52,47 @@
             transition: opacity 0.25s ease;
             filter: blur(8px);
         }
+        .money-flow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .money-tick {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            opacity: 0;
+            animation: money-drift var(--dur, 5s) ease-out forwards;
+            transform: translate3d(0, 0, 0);
+        }
+        .money-in {
+            color: rgba(25, 224, 168, 0.88);
+            text-shadow: 0 0 12px rgba(25, 224, 168, 0.45);
+        }
+        .money-out {
+            color: rgba(248, 113, 113, 0.88);
+            text-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+        }
+        @keyframes money-drift {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 0, 0) scale(0.96);
+            }
+            12% {
+                opacity: 0.88;
+            }
+            85% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(var(--dx, 90px), var(--dy, -120px), 0) scale(1.02);
+            }
+        }
         .dollar-float {
             position: fixed;
             top: 50%;
@@ -71,27 +112,24 @@
             mask-repeat: no-repeat;
             -webkit-mask-size: 100% 100%;
             mask-size: 100% 100%;
+            animation: dollar-zoom 24s ease-in-out infinite;
+        }
+        @keyframes dollar-zoom {
+            0% {
+                transform: translate(-50%, -50%) rotate(-10deg) scale(0.97);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(-10deg) scale(1.04);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-10deg) scale(0.97);
+            }
         }
         .neo-card {
             transform-style: preserve-3d;
             will-change: transform;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        /* ── nuevo: animación del párrafo manifesto ── */
-        .manifesto-line {
-            display: block;
-            opacity: 0;
-            transform: translateY(12px);
-            animation: fadeline .7s cubic-bezier(.22,1,.36,1) forwards;
-        }
-        .manifesto-line:nth-child(1) { animation-delay: .1s; }
-        .manifesto-line:nth-child(2) { animation-delay: .28s; }
-
-        @keyframes fadeline {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @media (max-width: 768px) {
             .dollar-float {
                 left: 62%;
@@ -104,6 +142,7 @@
 </head>
 <body class="min-h-screen bg-grid flex flex-col items-center justify-between p-6 md:p-12">
     <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="money-flow" aria-hidden="true"></div>
     <img src="dollar.jpg" alt="" class="dollar-float" aria-hidden="true" />
 
     <header class="w-full max-w-6xl flex justify-between items-center relative z-10">
@@ -119,11 +158,10 @@
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-100 mb-8 leading-[1.1]">
             Chau a las planillas.<br>Hola a <span class="text-[#19e0a8]">WhatsApp.</span>
         </h1>
-
-        <!-- párrafo actualizado — tono emocional/manifesto -->
+        
         <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-14 font-medium leading-relaxed md:leading-loose">
-            <span class="manifesto-line">Diseñado para los que siempre dicen <em class="not-italic text-white font-bold">"¿a dónde se fue la plata?"</em></span>
-            <span class="manifesto-line mt-2 md:mt-3">Con Rendi, la respuesta llega sola.</span>
+            <span class="block">Rendi extrae datos de tus facturas automáticamente usando IA.</span>
+            <span class="block mt-2 md:mt-3">Registra tus gastos en menos de 10 segundos.</span>
         </p>
 
         <div class="neo-card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-16 justify-center">
@@ -147,13 +185,51 @@
     <footer class="w-full max-w-6xl border-t border-black/5 pt-12">
         <div class="space-y-2 text-center md:text-right">
             <p class="mono opacity-40 uppercase">Dashboard</p>
-            <a href="https://dashboard.rendi.pro" class="text-sm font-bold underline hover:text-[#19e0a8]">Acceso Usuarios →</a>
+            <a href="https://rendi-dashboard.vercel.app" class="text-sm font-bold underline hover:text-[#19e0a8]">Acceso Usuarios →</a>
         </div>
     </footer>
 
 <script>
     const glow = document.querySelector('.cursor-glow');
     const card = document.querySelector('.neo-card');
+    const moneyFlow = document.querySelector('.money-flow');
+
+    function randomAmount() {
+        const value = Math.floor(25000 + Math.random() * 975000);
+        return value.toLocaleString('es-PY');
+    }
+
+    function spawnMoneyTick() {
+        if (!moneyFlow) return;
+
+        const tick = document.createElement('span');
+        const isIncome = Math.random() > 0.52;
+        const prefix = isIncome ? '+ Gs. ' : '- Gs. ';
+        tick.className = `money-tick ${isIncome ? 'money-in' : 'money-out'}`;
+        tick.textContent = `${prefix}${randomAmount()}`;
+
+        const startX = 6 + Math.random() * 88;
+        const startY = 14 + Math.random() * 72;
+        const dx = (Math.random() * 280 - 140).toFixed(0);
+        const dy = (Math.random() * -220 - 30).toFixed(0);
+        const size = (window.innerWidth < 768 ? 12 : 14) + Math.random() * 8;
+        const dur = 6 + Math.random() * 3.5;
+
+        tick.style.left = `${startX}%`;
+        tick.style.top = `${startY}%`;
+        tick.style.fontSize = `${size.toFixed(1)}px`;
+        tick.style.setProperty('--dx', `${dx}px`);
+        tick.style.setProperty('--dy', `${dy}px`);
+        tick.style.setProperty('--dur', `${dur.toFixed(2)}s`);
+
+        moneyFlow.appendChild(tick);
+        tick.addEventListener('animationend', () => tick.remove());
+    }
+
+    for (let i = 0; i < 6; i += 1) {
+        setTimeout(spawnMoneyTick, i * 420);
+    }
+    setInterval(spawnMoneyTick, 1400);
 
     document.addEventListener('mousemove', (event) => {
         glow.style.opacity = '1';
@@ -183,3 +259,5 @@
 </script>
 </body>
 </html>
+
+
