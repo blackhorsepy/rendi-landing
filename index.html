@@ -6,314 +6,334 @@
   <title>Rendi — Próximamente</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <!-- DM Sans: display font with character. Figtree: clean body -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,300&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
     :root {
-      --font:       'Inter', system-ui, sans-serif;
-      --accent:     #19e0a8;
-      --accent-2:   #0fb87e;
-      --blue:       #3b82f6;
-      --bg:         #050810;
-      --border:     rgba(255,255,255,0.07);
-      --text:       #ffffff;
-      --muted:      rgba(255,255,255,0.45);
-      --muted-2:    rgba(255,255,255,0.20);
+      --display:   'DM Sans', sans-serif;
+      --body:      'Figtree', sans-serif;
+      --accent:    #19e0a8;
+      --accent-2:  #0ec494;
+      --blue:      #4f8ef7;
+      --bg:        #06080f;
+      --surface:   rgba(255,255,255,0.03);
+      --border:    rgba(255,255,255,0.06);
+      --text:      #f5f7fa;
+      --muted:     rgba(245,247,250,0.44);
+      --muted-2:   rgba(245,247,250,0.18);
     }
 
     html, body {
       width:100%; height:100%;
       background:var(--bg);
       overflow:hidden;
-      font-family:var(--font);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ── SHELL ── */
+    /* ─── SHELL ─── */
     .shell {
       position:relative; width:100vw; height:100vh;
       display:flex; align-items:center; justify-content:center;
-      overflow:hidden; color:var(--text);
+      overflow:hidden;
     }
 
-    /* ── BACKGROUND ── */
-    .bg-base {
+    /* ─── LAYERED BACKGROUND ─── */
+    /* deep space gradient */
+    .bg-layer {
       position:absolute; inset:0; pointer-events:none;
       background:
-        radial-gradient(ellipse 90% 55% at 50% -5%,  rgba(25,224,168,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 50% at 90% 85%,  rgba(59,130,246,0.09) 0%, transparent 55%),
-        radial-gradient(ellipse 65% 60% at 5%  95%,  rgba(25,224,168,0.045) 0%, transparent 55%),
-        linear-gradient(165deg, #070d1c 0%, #050810 55%, #060b15 100%);
+        radial-gradient(ellipse 100% 60% at 50% -10%, rgba(25,224,168,0.065) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 55% at 92% 90%,  rgba(79,142,247,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 0%  80%,  rgba(25,224,168,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 70% 20%,  rgba(79,142,247,0.05) 0%, transparent 50%),
+        linear-gradient(170deg, #0a1020 0%, #06080f 45%, #080c18 100%);
     }
 
-    .grid {
+    /* fine dot grid */
+    .dots {
       position:absolute; inset:0; pointer-events:none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size:54px 54px;
-      -webkit-mask-image: radial-gradient(ellipse 88% 68% at 50% 48%, black 10%, transparent 100%);
-      mask-image:         radial-gradient(ellipse 88% 68% at 50% 48%, black 10%, transparent 100%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size:32px 32px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
+      mask-image:         radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
     }
 
-    .orb { position:absolute; border-radius:50%; filter:blur(110px); pointer-events:none; }
+    /* ambient orbs */
+    .orb { position:absolute; border-radius:50%; pointer-events:none; }
     .o1 {
-      width:720px; height:720px; top:-210px; left:-230px;
-      background:radial-gradient(circle, rgba(25,224,168,0.10) 0%, transparent 60%);
-      animation: d1 20s ease-in-out infinite alternate;
+      width:900px; height:900px; top:-350px; left:-280px;
+      background:radial-gradient(circle, rgba(25,224,168,0.055) 0%, transparent 55%);
+      filter:blur(120px);
+      animation: f1 22s ease-in-out infinite alternate;
     }
     .o2 {
-      width:520px; height:520px; bottom:-130px; right:-110px;
-      background:radial-gradient(circle, rgba(59,130,246,0.11) 0%, transparent 60%);
-      animation: d2 14s ease-in-out infinite alternate;
+      width:600px; height:600px; bottom:-200px; right:-150px;
+      background:radial-gradient(circle, rgba(79,142,247,0.09) 0%, transparent 55%);
+      filter:blur(100px);
+      animation: f2 16s ease-in-out infinite alternate;
     }
     .o3 {
-      width:340px; height:340px; top:42%; left:62%;
-      background:radial-gradient(circle, rgba(25,224,168,0.055) 0%, transparent 65%);
-      animation: d1 10s ease-in-out infinite alternate-reverse;
+      width:420px; height:420px; top:35%; right:8%;
+      background:radial-gradient(circle, rgba(25,224,168,0.04) 0%, transparent 60%);
+      filter:blur(90px);
+      animation: f1 12s ease-in-out 2s infinite alternate-reverse;
     }
-    @keyframes d1 { to { transform:translate(46px, 34px); } }
-    @keyframes d2 { to { transform:translate(-38px,-26px); } }
+    @keyframes f1 { to { transform:translate(52px,38px); } }
+    @keyframes f2 { to { transform:translate(-40px,-28px); } }
 
-    #mglow { position:absolute; inset:0; pointer-events:none; transition:background .25s ease; }
+    /* mouse reactive glow */
+    #mglow { position:absolute; inset:0; pointer-events:none; transition:background .3s ease; }
 
+    /* edge vignette */
     .vig {
       position:absolute; inset:0; pointer-events:none;
-      background:radial-gradient(ellipse 82% 78% at 50% 50%, transparent 0%, rgba(5,8,16,0.68) 100%);
+      background:radial-gradient(ellipse 90% 85% at 50% 50%, transparent 30%, rgba(6,8,15,0.75) 100%);
     }
 
-    .scan {
-      position:absolute; left:0; right:0; height:1px; pointer-events:none;
-      background:linear-gradient(90deg, transparent, rgba(25,224,168,0.07), transparent);
+    /* thin horizontal rules — editorial touch */
+    .rule {
+      position:absolute; left:5%; right:5%; height:1px; pointer-events:none;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, transparent);
     }
-    .st { top:17%; } .sb { bottom:17%; }
+    .rt { top:12%; } .rb { bottom:12%; }
 
-    .corn {
-      position:absolute; width:20px; height:20px;
-      border-style:solid; border-color:rgba(25,224,168,0.13); border-width:0;
-    }
-    .ctl { top:28px; left:28px;   border-top-width:1px; border-left-width:1px; }
-    .ctr { top:28px; right:28px;  border-top-width:1px; border-right-width:1px; }
-    .cbl { bottom:28px; left:28px;  border-bottom-width:1px; border-left-width:1px; }
-    .cbr { bottom:28px; right:28px; border-bottom-width:1px; border-right-width:1px; }
+    /* corner brackets */
+    .corn { position:absolute; width:18px; height:18px;
+            border-style:solid; border-color:rgba(25,224,168,0.12); border-width:0; }
+    .ctl { top:24px; left:24px;   border-top-width:1px; border-left-width:1px; }
+    .ctr { top:24px; right:24px;  border-top-width:1px; border-right-width:1px; }
+    .cbl { bottom:24px; left:24px;  border-bottom-width:1px; border-left-width:1px; }
+    .cbr { bottom:24px; right:24px; border-bottom-width:1px; border-right-width:1px; }
 
-    /* ── CONTENT ── */
+    /* ─── CONTENT ─── */
     .content {
       position:relative; z-index:10;
-      display:flex; flex-direction:column; align-items:flex-start;
-      padding:0 36px; max-width:780px; width:100%;
+      display:flex; flex-direction:column;
+      align-items:flex-start;
+      width:100%; max-width:800px;
+      padding:0 40px;
     }
 
-    /* ── LOGO ── */
+    /* ─── LOGO — match dashboard exactly ─── */
+    /* dashboard: 34px box, borderRadius 10px, fontWeight 800, fontSize 16px
+       we scale slightly for hero presence but keep same proportions */
     .logo-wrap {
-      position:relative; margin-bottom:48px;
-      opacity:0; transform:translateY(18px);
-      animation: up .8s cubic-bezier(.22,1,.36,1) .05s forwards;
+      display:flex; align-items:center; gap:10px;
+      margin-bottom:52px;
+      opacity:0; animation: rise .7s cubic-bezier(.22,1,.36,1) .05s forwards;
     }
-    .logo-halo {
-      position:absolute; inset:-72px; border-radius:50%; pointer-events:none;
-      background:radial-gradient(ellipse at center, rgba(25,224,168,0.17) 0%, transparent 65%);
-      animation: glow 5s ease-in-out infinite;
-    }
-    @keyframes glow { 0%,100%{opacity:.5;transform:scale(1);} 50%{opacity:1;transform:scale(1.1);} }
-
-    .logo-lockup { position:relative; display:flex; align-items:center; gap:14px; }
-
     .logo-icon {
-      width:52px; height:52px; border-radius:14px; flex-shrink:0;
-      background:linear-gradient(140deg, #19e0a8 0%, #0db87c 100%);
+      width:36px; height:36px; border-radius:10px; flex-shrink:0;
+      background:var(--accent);
       display:flex; align-items:center; justify-content:center;
-      font-family:var(--font); font-weight:800; font-size:23px;
-      color:#021a0e; letter-spacing:-.02em;
-      box-shadow: 0 0 26px rgba(25,224,168,0.42), 0 0 60px rgba(25,224,168,0.14);
+      font-family:var(--display); font-weight:800; font-size:17px;
+      color:#000; letter-spacing:-.02em;
+      box-shadow:0 0 20px rgba(25,224,168,0.35), 0 0 48px rgba(25,224,168,0.12);
     }
-
     .logo-word {
-      font-family:var(--font); font-weight:800; font-size:37px;
-      letter-spacing:-.055em; color:#fff; line-height:1;
+      font-family:var(--display); font-weight:700; font-size:21px;
+      letter-spacing:-.03em; color:var(--text); line-height:1;
     }
 
-    /* ── BADGE ── */
-    .badge {
+    /* ─── EYEBROW LABEL ─── */
+    .eyebrow {
       display:inline-flex; align-items:center; gap:7px;
-      padding:5px 13px 5px 8px; border-radius:99px;
-      background:rgba(25,224,168,0.06);
-      border:1px solid rgba(25,224,168,0.17);
-      color:var(--accent);
-      font-family:var(--font); font-size:10px; font-weight:600;
-      letter-spacing:.13em; text-transform:uppercase;
-      margin-bottom:22px; align-self:flex-start;
-      opacity:0; transform:translateY(10px);
-      animation: up .6s cubic-bezier(.22,1,.36,1) .22s forwards;
+      padding:4px 12px 4px 8px; border-radius:99px;
+      border:1px solid rgba(25,224,168,0.20);
+      background:rgba(25,224,168,0.055);
+      font-family:var(--body); font-size:10.5px; font-weight:500;
+      color:var(--accent); letter-spacing:.11em; text-transform:uppercase;
+      margin-bottom:24px;
+      opacity:0; animation: rise .6s cubic-bezier(.22,1,.36,1) .18s forwards;
     }
-    .bdot {
+    .dot {
       width:6px; height:6px; border-radius:50%;
-      background:var(--accent); box-shadow:0 0 7px var(--accent);
-      animation: blink 2.4s ease-in-out infinite;
+      background:var(--accent); box-shadow:0 0 6px var(--accent);
+      animation: blink 2.6s ease-in-out infinite;
     }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.18;} }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
 
-    /* ── H1: gradient text white → mint ── */
+    /* ─── HEADLINE ─── */
+    /* DM Sans 900 — tight tracking, gradient text white→mint */
     h1 {
-      font-family:var(--font);
-      font-size:clamp(2.7rem, 7.8vw, 5.5rem);
+      font-family:var(--display);
+      font-size:clamp(2.6rem, 7.5vw, 5.2rem);
       font-weight:900;
-      line-height:1.02;
+      line-height:1.03;
       letter-spacing:-.045em;
+      margin-bottom:22px;
       width:100%;
-      margin-bottom:20px;
-      text-align:left;
-
+      /* gradient: crisp white → slight warm white → mint */
       background:linear-gradient(
-        128deg,
+        130deg,
         #ffffff  0%,
-        #ddf5ee 50%,
+        #f0faf7 48%,
         #19e0a8 100%
       );
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
-
-      opacity:0; transform:translateY(16px);
-      animation: up .78s cubic-bezier(.22,1,.36,1) .36s forwards;
+      opacity:0; animation: rise .8s cubic-bezier(.22,1,.36,1) .32s forwards;
     }
 
-    /* ── BODY TEXT: Inter 400, relaxed ── */
+    /* ─── SUBHEADLINE ─── */
+    /* Figtree 300 — light, generous leading, very legible */
     .sub {
-      font-family:var(--font);
-      font-size:clamp(.88rem, 1.65vw, 1.05rem);
-      font-weight:400;
-      line-height:1.72;
+      font-family:var(--body);
+      font-size:clamp(.9rem, 1.6vw, 1.05rem);
+      font-weight:300;
+      line-height:1.75;
       color:var(--muted);
-      letter-spacing:-.012em;
-      max-width:510px;
+      letter-spacing:-.005em;
+      max-width:500px;
       margin-bottom:44px;
-      text-align:left;
-      opacity:0; transform:translateY(10px);
-      animation: up .65s cubic-bezier(.22,1,.36,1) .5s forwards;
+      opacity:0; animation: rise .7s cubic-bezier(.22,1,.36,1) .48s forwards;
     }
 
-    /* ── BUTTONS ── */
+    /* ─── BUTTONS ─── */
     .btns {
-      display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-start;
-      opacity:0; transform:translateY(10px);
-      animation: up .65s cubic-bezier(.22,1,.36,1) .64s forwards;
+      display:flex; gap:12px; flex-wrap:wrap;
+      opacity:0; animation: rise .65s cubic-bezier(.22,1,.36,1) .62s forwards;
     }
 
-    /* primary — Inter 600 */
+    /* CTA primario — gradient fill, DM Sans 600 */
     .btn-p {
       display:inline-flex; align-items:center; gap:9px;
-      padding:14px 28px; border-radius:12px;
+      padding:13px 26px; border-radius:11px;
       background:linear-gradient(135deg, #19e0a8 0%, #0ec494 100%);
       color:#021a0e;
-      font-family:var(--font); font-size:.88rem; font-weight:600;
+      font-family:var(--display); font-size:.88rem; font-weight:700;
       letter-spacing:-.01em;
       border:none; cursor:pointer; text-decoration:none;
-      box-shadow:
-        0 0 26px rgba(25,224,168,0.30),
-        inset 0 1px 0 rgba(255,255,255,0.18);
-      transition:transform .18s ease, box-shadow .18s ease, filter .18s;
+      box-shadow:0 0 24px rgba(25,224,168,0.30), inset 0 1px 0 rgba(255,255,255,0.20);
+      transition:transform .17s ease, box-shadow .17s ease, filter .17s;
     }
     .btn-p:hover {
       transform:translateY(-2px) scale(1.02);
-      box-shadow:0 0 48px rgba(25,224,168,0.50), inset 0 1px 0 rgba(255,255,255,0.18);
-      filter:brightness(1.07);
+      box-shadow:0 0 44px rgba(25,224,168,0.52), inset 0 1px 0 rgba(255,255,255,0.20);
+      filter:brightness(1.06);
     }
+    .btn-p svg { transition:transform .17s ease; }
+    .btn-p:hover svg { transform:translateX(3px); }
 
-    /* secondary — Inter 500 ghost */
+    /* CTA secundario — ghost, Figtree 500 */
     .btn-s {
       display:inline-flex; align-items:center; gap:8px;
-      padding:14px 22px; border-radius:12px;
-      background:rgba(255,255,255,0.03);
+      padding:13px 22px; border-radius:11px;
+      background:rgba(255,255,255,0.025);
       color:var(--muted);
-      font-family:var(--font); font-size:.88rem; font-weight:500;
+      font-family:var(--body); font-size:.88rem; font-weight:500;
       letter-spacing:-.01em;
-      border:1px solid rgba(255,255,255,0.09);
+      border:1px solid rgba(255,255,255,0.08);
       cursor:default;
-      transition:border-color .2s, color .2s;
+      transition:border-color .2s, color .2s, background .2s;
     }
-    .btn-s:hover { border-color:rgba(255,255,255,0.14); color:rgba(255,255,255,.52); }
+    .btn-s:hover {
+      border-color:rgba(255,255,255,0.13);
+      color:rgba(245,247,250,.55);
+      background:rgba(255,255,255,0.04);
+    }
 
-    /* ── FOOTER TAGS ── */
-    .tags {
-      position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
-      display:flex; align-items:center; gap:16px; white-space:nowrap;
-      opacity:0; animation: up .7s ease .88s forwards;
+    /* ─── BOTTOM STATS/TAGS — adds credibility ─── */
+    .footer {
+      position:absolute; bottom:28px; left:0; right:0;
+      display:flex; align-items:center; justify-content:center; gap:0;
+      opacity:0; animation: rise .6s ease .85s forwards;
     }
-    .tag {
-      font-family:var(--font); font-size:9px; font-weight:500;
-      letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2);
+    .stat {
+      display:flex; flex-direction:column; align-items:center;
+      padding:0 28px;
+      border-right:1px solid rgba(255,255,255,0.07);
     }
-    .sep { width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,.09); flex-shrink:0; }
+    .stat:last-child { border-right:none; }
+    .stat-val {
+      font-family:var(--display); font-size:14px; font-weight:700;
+      color:var(--text); letter-spacing:-.02em; line-height:1;
+      margin-bottom:3px;
+    }
+    .stat-lbl {
+      font-family:var(--body); font-size:9px; font-weight:400;
+      color:var(--muted-2); letter-spacing:.12em; text-transform:uppercase;
+    }
 
-    @keyframes up {
-      from { opacity:0; transform:translateY(14px); }
+    /* ─── KEYFRAMES ─── */
+    @keyframes rise {
+      from { opacity:0; transform:translateY(16px); }
       to   { opacity:1; transform:translateY(0); }
     }
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:540px) {
-      .corn,.scan { display:none; }
-      .content { padding:0 20px; }
-      .logo-icon { width:42px; height:42px; font-size:20px; border-radius:11px; }
-      .logo-word { font-size:30px; }
-      .logo-wrap { margin-bottom:36px; }
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:560px) {
+      .corn,.rule { display:none; }
+      .content { padding:0 22px; }
+      .logo-wrap { margin-bottom:40px; }
       .btns { flex-direction:column; align-items:stretch; }
       .btn-p,.btn-s { justify-content:center; }
-      .tags { gap:10px; }
+      .footer { gap:0; }
+      .stat { padding:0 18px; }
+      .stat-val { font-size:12px; }
     }
   </style>
 </head>
 <body>
 <div class="shell">
 
-  <div class="bg-base"></div>
+  <!-- background -->
+  <div class="bg-layer"></div>
   <div id="mglow"></div>
-  <div class="grid"></div>
+  <div class="dots"></div>
   <div class="orb o1"></div>
   <div class="orb o2"></div>
   <div class="orb o3"></div>
   <div class="vig"></div>
-  <div class="scan st"></div>
-  <div class="scan sb"></div>
+  <div class="rule rt"></div>
+  <div class="rule rb"></div>
+
+  <!-- corners -->
   <div class="corn ctl"></div>
   <div class="corn ctr"></div>
   <div class="corn cbl"></div>
   <div class="corn cbr"></div>
 
+  <!-- ─── main ─── -->
   <div class="content">
 
+    <!-- logo — same proportions as dashboard sidebar -->
     <div class="logo-wrap">
-      <div class="logo-halo"></div>
-      <div class="logo-lockup">
-        <div class="logo-icon">R</div>
-        <span class="logo-word">Rendi</span>
-      </div>
+      <div class="logo-icon">R</div>
+      <span class="logo-word">Rendi</span>
     </div>
 
-    <div class="badge"><span class="bdot"></span>Próximamente</div>
+    <!-- eyebrow -->
+    <div class="eyebrow">
+      <span class="dot"></span>Próximamente
+    </div>
 
+    <!-- h1 gradient -->
     <h1>La nueva forma de<br>entender tu plata.</h1>
 
+    <!-- sub — Figtree light -->
     <p class="sub">
       Una experiencia más clara, más elegante y más inteligente
       para organizar tus finanzas personales.
     </p>
 
+    <!-- CTAs -->
     <div class="btns">
       <a href="/dashboard" class="btn-p">
         Ir al dashboard
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/>
           <polyline points="12 5 19 12 12 19"/>
         </svg>
       </a>
       <button class="btn-s" disabled>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <polyline points="12 6 12 12 16 14"/>
         </svg>
@@ -323,24 +343,34 @@
 
   </div>
 
-  <div class="tags">
-    <span class="tag">Finanzas</span>
-    <span class="sep"></span>
-    <span class="tag">Control</span>
-    <span class="sep"></span>
-    <span class="tag">Claridad</span>
+  <!-- bottom stats bar -->
+  <div class="footer">
+    <div class="stat">
+      <span class="stat-val">WhatsApp</span>
+      <span class="stat-lbl">Registro rápido</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">IA integrada</span>
+      <span class="stat-lbl">Categoriza solo</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">Dashboard</span>
+      <span class="stat-lbl">Visión completa</span>
+    </div>
   </div>
 
 </div>
+
 <script>
+  const mglow = document.getElementById('mglow');
   document.addEventListener('mousemove', e => {
     const px = (e.clientX / innerWidth  * 100).toFixed(1);
     const py = (e.clientY / innerHeight * 100).toFixed(1);
-    document.getElementById('mglow').style.background =
-      `radial-gradient(ellipse 46% 42% at ${px}% ${py}%,
-        rgba(25,224,168,0.07) 0%,
-        rgba(59,130,246,0.04) 40%,
-        transparent 70%)`;
+    mglow.style.background =
+      `radial-gradient(ellipse 44% 40% at ${px}% ${py}%,
+        rgba(25,224,168,0.065) 0%,
+        rgba(79,142,247,0.035) 45%,
+        transparent 68%)`;
   });
 </script>
 </body>
