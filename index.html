@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RENDI — Claridad Financiera</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=JetBrains+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent: #00E696;
+            --font-display: 'Syne', sans-serif;
+        }
         body { 
             background-color: #030712;
             background-image:
@@ -140,6 +144,33 @@
             order: 2;
             margin-top: 1rem;
         }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        .brand-logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            color: #000;
+            box-shadow: 0 0 24px rgba(0, 230, 150, 0.3);
+        }
+        .brand-logo-text {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            color: #f9fafb;
+        }
         @media (max-width: 1024px) {
             .dollar-float {
                 left: 60%;
@@ -179,8 +210,9 @@
     <img src="dollar.jpg" alt="" class="dollar-float" aria-hidden="true" />
 
     <header class="w-full max-w-6xl flex flex-col items-center gap-4 sm:gap-5 md:flex-row md:justify-between md:items-center md:gap-6 relative z-10">
-        <div class="flex items-center gap-2">
-            <img src="rendilogo.ico" alt="Rendi logo" class="h-24 w-24 rounded-xl object-cover sm:h-28 sm:w-28 md:h-40 md:w-40 xl:h-48 xl:w-48" />
+        <div class="brand-logo" aria-label="Rendi">
+            <div class="brand-logo-mark">R</div>
+            <span class="brand-logo-text">Rendi</span>
         </div>
         <div class="w-full md:w-auto text-center md:text-right shrink-0">
             <a href="https://dashboard.rendi.pro" class="inline-flex items-center rounded-full border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:border-[#19e0a8] hover:text-[#19e0a8]">Acceso Usuarios →</a>
