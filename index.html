@@ -19,7 +19,7 @@
                 linear-gradient(180deg, #020617 0%, #000000 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #f3f4f6;
-            scroll-behavior: smooth;
+            /* scroll handled by JS */
         }
 
         .font-display { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; }
@@ -415,5 +415,41 @@
         </div>
     </footer>
 
+
+    <script>
+        // Custom smooth scroll with easeInOutQuart easing
+        function easeInOutQuart(t) {
+            return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+        }
+
+        function smoothScrollTo(targetY, duration) {
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            let startTime = null;
+
+            function step(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + distance * easeInOutQuart(progress));
+                if (progress < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                const navHeight = 80;
+                const targetY = target.getBoundingClientRect().top + window.scrollY - navHeight;
+                smoothScrollTo(targetY, 900);
+            });
+        });
+    </script>
 </body>
 </html>
