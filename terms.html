@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos de Uso — Rendi</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%2300E696'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='Syne,sans-serif' font-weight='800' font-size='22' fill='%23000'%3ER%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #19e0a8; --bg-dark: #030712; }
+        * { box-sizing: border-box; }
+        body { background: var(--bg-dark); color: #f1f5f9; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .accent { color: var(--accent); }
+
+        .section-divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 2.5rem 0; }
+
+        .prose h2 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #f1f5f9;
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .prose h2 .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: rgba(25, 224, 168, 0.12);
+            border: 1px solid rgba(25, 224, 168, 0.2);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .prose p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.75;
+            margin-bottom: 0.75rem;
+        }
+        .prose ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0.75rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .prose ul li {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        .prose ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+        .prose a { color: var(--accent); text-decoration: none; }
+        .prose a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5" style="background: rgba(3,7,18,0.85); backdrop-filter: blur(20px);">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;">
+                <div style="width:40px;height:40px;background:#00E696;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#000;box-shadow:0 0 24px rgba(0,230,150,0.3);">R</div>
+                <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.5px;">Rendi</span>
+            </a>
+            <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+                Volver al inicio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="max-w-2xl mx-auto px-6 pt-32 pb-24">
+
+        <!-- Header -->
+        <div class="mb-10">
+            <span class="mono text-[11px] uppercase tracking-[0.2em] text-[#19e0a8] mb-4 block">Legal</span>
+            <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;line-height:1.2;" class="mb-3">Términos de Uso</h1>
+            <p class="mono text-[12px] text-gray-600 uppercase tracking-widest">Última actualización: Marzo 2026</p>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Body -->
+        <div class="prose">
+
+            <h2><span class="num">1</span> Introducción</h2>
+            <p>Bienvenido a Rendi (en adelante "Rendi", "la plataforma" o "el servicio").</p>
+            <p>Rendi es una herramienta digital diseñada para ayudar a los usuarios a registrar, organizar y comprender sus gastos y hábitos financieros.</p>
+            <p>Al acceder o utilizar la plataforma, usted acepta estos Términos de Uso en su totalidad. Si no está de acuerdo con alguna parte de estos términos, le recomendamos no utilizar el servicio.</p>
+
+            <h2><span class="num">2</span> Descripción del servicio</h2>
+            <p>Rendi es una plataforma de gestión de finanzas personales que permite a los usuarios:</p>
+            <ul>
+                <li>Registrar gastos y movimientos financieros</li>
+                <li>Visualizar estadísticas y hábitos de gasto</li>
+                <li>Organizar categorías financieras</li>
+                <li>Recibir recordatorios o asistencia relacionados con la gestión financiera</li>
+            </ul>
+            <p>El servicio puede integrarse con herramientas tecnológicas de terceros o canales de comunicación como WhatsApp para mejorar la experiencia del usuario.</p>
+
+            <h2><span class="num">3</span> Uso aceptable del servicio</h2>
+            <p>Al utilizar Rendi, usted se compromete a:</p>
+            <ul>
+                <li>Proporcionar información veraz durante el registro o uso del servicio</li>
+                <li>Utilizar la plataforma únicamente para fines personales y legítimos</li>
+                <li>No intentar acceder de forma no autorizada a sistemas, datos o cuentas de otros usuarios</li>
+                <li>No utilizar la plataforma para actividades fraudulentas, ilegales o que puedan perjudicar a otros usuarios o al servicio</li>
+            </ul>
+            <p>Rendi se reserva el derecho de suspender o limitar el acceso de cualquier usuario que incumpla estas condiciones.</p>
+
+            <h2><span class="num">4</span> Estado del servicio</h2>
+            <p>Rendi puede encontrarse en etapas tempranas de desarrollo o en evolución constante. Esto implica que:</p>
+            <ul>
+                <li>Algunas funcionalidades pueden cambiar o actualizarse con el tiempo</li>
+                <li>Pueden existir errores, interrupciones o comportamientos inesperados</li>
+                <li>El servicio puede ser modificado o mejorado sin previo aviso</li>
+            </ul>
+
+            <h2><span class="num">5</span> Limitación de responsabilidad</h2>
+            <p>Rendi es una herramienta de apoyo para la gestión financiera personal. Por lo tanto:</p>
+            <ul>
+                <li>La plataforma no ofrece asesoramiento financiero, contable ni legal</li>
+                <li>La información mostrada depende de los datos proporcionados por el usuario</li>
+                <li>Rendi no garantiza la exactitud absoluta de los cálculos o análisis generados</li>
+                <li>El usuario es responsable de verificar la información antes de tomar decisiones financieras</li>
+            </ul>
+
+            <h2><span class="num">6</span> Propiedad intelectual</h2>
+            <p>Todo el contenido relacionado con Rendi, incluyendo software, diseño, marca, logotipos, interfaz y contenidos originales, es propiedad de Rendi o de sus respectivos titulares.</p>
+            <p>Queda prohibida la reproducción, distribución o uso comercial del servicio sin autorización previa.</p>
+
+            <h2><span class="num">7</span> Servicios de terceros</h2>
+            <p>Rendi puede utilizar servicios tecnológicos de terceros para operar su infraestructura o funcionalidades, incluyendo proveedores de infraestructura cloud o servicios de mensajería. Rendi no controla las políticas o disponibilidad de estos servicios externos.</p>
+
+            <h2><span class="num">8</span> Suspensión o terminación del acceso</h2>
+            <p>Rendi podrá suspender o cancelar el acceso al servicio en los siguientes casos:</p>
+            <ul>
+                <li>Incumplimiento de estos Términos de Uso</li>
+                <li>Uso fraudulento o indebido del servicio</li>
+                <li>Requerimientos legales o regulatorios</li>
+                <li>Mantenimiento o seguridad del sistema</li>
+            </ul>
+            <p>Los usuarios también pueden dejar de utilizar el servicio en cualquier momento.</p>
+
+            <h2><span class="num">9</span> Modificaciones del servicio y de los términos</h2>
+            <p>Rendi se reserva el derecho de modificar o actualizar el servicio, introducir nuevas funcionalidades y actualizar estos Términos de Uso cuando sea necesario.</p>
+            <p>El uso continuado del servicio después de dichos cambios implica la aceptación de los nuevos términos.</p>
+
+            <h2><span class="num">10</span> Ley aplicable</h2>
+            <p>Estos Términos de Uso se interpretarán conforme a las leyes aplicables en la jurisdicción correspondiente al operador del servicio.</p>
+
+            <h2><span class="num">11</span> Contacto</h2>
+            <p>Para consultas relacionadas con estos Términos de Uso o el funcionamiento del servicio:</p>
+            <ul>
+                <li>Email: <a href="mailto:contacto@rendi.pro">contacto@rendi.pro</a></li>
+                <li>Sitio web: <a href="https://rendi.pro">rendi.pro</a></li>
+            </ul>
+
+        </div>
+
+        <hr class="section-divider">
+
+        <p class="mono text-[11px] text-gray-700 uppercase tracking-[0.15em] text-center mt-8">© 2026 Rendi — Todos los derechos reservados.</p>
+
+    </main>
+
+</body>
+</html>
