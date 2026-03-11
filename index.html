@@ -3,331 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RENDI — Claridad Financiera</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Rendi — Claridad Financiera con IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=JetBrains+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=JetBrains+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #00E696;
-            --font-display: 'Syne', sans-serif;
+            --accent: #19e0a8;
+            --bg-dark: #030712;
         }
         body { 
-            background-color: #030712;
+            background-color: var(--bg-dark);
             background-image:
-                radial-gradient(circle at 15% 20%, rgba(25, 224, 168, 0.24), transparent 42%),
-                radial-gradient(circle at 85% 80%, rgba(25, 224, 168, 0.18), transparent 38%),
-                linear-gradient(160deg, #020617 0%, #000000 55%, #020617 100%);
+                radial-gradient(circle at 10% 10%, rgba(25, 224, 168, 0.15), transparent 35%),
+                radial-gradient(circle at 90% 90%, rgba(25, 224, 168, 0.1), transparent 35%),
+                linear-gradient(180deg, #020617 0%, #000000 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #e5e7eb;
+            color: #f3f4f6;
+            scroll-behavior: smooth;
         }
-        .bg-grid {
-            background-image: radial-gradient(rgba(25, 224, 168, 0.25) 0.5px, transparent 0.5px);
-            background-size: 30px 30px;
-            background-position: -19px -19px;
-        }
-        .neo-card {
-            background: #111827;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            border-radius: 32px;
-        }
-        .btn-mint {
-            background: #19e0a8;
-            box-shadow: 0 10px 20px rgba(25, 224, 168, 0.2);
+        /* Cambio aplicado: Ahora el display usa Plus Jakarta Sans Bold */
+        .font-display { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
-        .btn-mint:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(25, 224, 168, 0.3);
+        .glass-card:hover {
+            border-color: rgba(25, 224, 168, 0.3);
+            transform: translateY(-4px);
         }
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-        .cursor-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px;
-            height: 320px;
-            border-radius: 999px;
-            pointer-events: none;
-            z-index: 5;
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(25, 224, 168, 0.22) 0%, rgba(25, 224, 168, 0.08) 35%, rgba(25, 224, 168, 0) 70%);
-            transition: opacity 0.25s ease;
-            filter: blur(8px);
-        }
-        .money-flow {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        .money-tick {
-            position: absolute;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            opacity: 0;
-            animation: money-drift var(--dur, 5s) ease-out forwards;
-            transform: translate3d(0, 0, 0);
-        }
-        .money-in {
-            color: rgba(25, 224, 168, 0.88);
-            text-shadow: 0 0 12px rgba(25, 224, 168, 0.45);
-        }
-        .money-out {
-            color: rgba(248, 113, 113, 0.88);
-            text-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
-        }
-        @keyframes money-drift {
-            0% {
-                opacity: 0;
-                transform: translate3d(0, 0, 0) scale(0.96);
-            }
-            12% {
-                opacity: 0.88;
-            }
-            85% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0;
-                transform: translate3d(var(--dx, 90px), var(--dy, -120px), 0) scale(1.02);
-            }
-        }
-        .dollar-float {
-            position: fixed;
-            top: 50%;
-            left: 58%;
-            width: 1200px;
-            height: auto;
-            pointer-events: none;
-            z-index: 0;
-            transform: translate(-50%, -50%) rotate(-10deg);
-            opacity: 0.12;
-            object-fit: contain;
-            filter: saturate(1.03) blur(1px) hue-rotate(-8deg);
-            mix-blend-mode: screen;
-            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 18%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0.22) 68%, rgba(0,0,0,0) 88%);
-            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 18%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0.22) 68%, rgba(0,0,0,0) 88%);
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-size: 100% 100%;
-            mask-size: 100% 100%;
-            animation: dollar-zoom 24s ease-in-out infinite;
-        }
-        @keyframes dollar-zoom {
-            0% {
-                transform: translate(-50%, -50%) rotate(-10deg) scale(0.97);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotate(-10deg) scale(1.04);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(-10deg) scale(0.97);
-            }
-        }
-        .neo-card {
-            transform-style: preserve-3d;
-            will-change: transform;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .manifesto-line {
-            display: block;
-        }
-        .manifesto-line:first-child {
-            order: 1;
-        }
-        .manifesto-line:last-child {
-            order: 2;
-            margin-top: 1rem;
-        }
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-        }
-        .brand-logo-mark {
-            width: 40px;
-            height: 40px;
+        .btn-primary {
             background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 20px;
             color: #000;
-            box-shadow: 0 0 24px rgba(0, 230, 150, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .brand-logo-text {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 24px;
-            letter-spacing: -0.5px;
-            color: #f9fafb;
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(25, 224, 168, 0.4);
         }
-        @media (max-width: 1024px) {
-            .dollar-float {
-                left: 60%;
-                width: 920px;
-                opacity: 0.1;
-            }
+        .gradient-text {
+            background: linear-gradient(to right, #fff, #19e0a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        @media (max-width: 768px) {
-            .cursor-glow {
-                display: none;
-            }
-            .money-tick {
-                animation-duration: 4.8s;
-            }
-            .dollar-float {
-                left: 64%;
-                width: 640px;
-                height: auto;
-                opacity: 0.08;
-            }
-            .neo-card {
-                border-radius: 24px;
-            }
-        }
-        @media (max-width: 480px) {
-            .dollar-float {
-                left: 70%;
-                width: 520px;
-                opacity: 0.06;
-            }
-        }
+        section { padding: 80px 20px; }
     </style>
 </head>
-<body class="min-h-screen overflow-x-hidden bg-grid flex flex-col items-center justify-between px-4 py-5 sm:px-6 sm:py-6 md:p-10 xl:p-12">
-    <div class="cursor-glow" aria-hidden="true"></div>
-    <div class="money-flow" aria-hidden="true"></div>
-    <img src="dollar.jpg" alt="" class="dollar-float" aria-hidden="true" />
+<body class="overflow-x-hidden">
 
-    <header class="w-full max-w-6xl flex flex-col items-center gap-4 sm:gap-5 md:flex-row md:justify-between md:items-center md:gap-6 relative z-10">
-        <div class="brand-logo" aria-label="Rendi">
-            <div class="brand-logo-mark">R</div>
-            <span class="brand-logo-text">Rendi</span>
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-[#19e0a8] text-black font-extrabold w-8 h-8 flex items-center justify-center rounded-lg font-display text-lg">R</div>
+                <span class="text-xl font-bold font-display tracking-tight">RENDI</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#que-es" class="hover:text-[#19e0a8] transition">Qué es</a>
+                <a href="#como-funciona" class="hover:text-[#19e0a8] transition">Cómo funciona</a>
+                <a href="#seguridad" class="hover:text-[#19e0a8] transition">Privacidad</a>
+            </div>
+            <a href="https://dashboard.rendi.pro" class="text-sm font-bold border border-white/10 px-5 py-2 rounded-full hover:bg-white/5 transition">Acceso</a>
         </div>
-        <div class="w-full md:w-auto text-center md:text-right shrink-0">
-            <a href="https://dashboard.rendi.pro" class="inline-flex items-center rounded-full border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:border-[#19e0a8] hover:text-[#19e0a8]">Acceso Usuarios →</a>
+    </nav>
+
+    <header class="pt-40 pb-20 text-center max-w-5xl mx-auto relative">
+        <div class="inline-block px-4 py-1.5 rounded-full border border-[#19e0a8]/30 bg-[#19e0a8]/5 text-[#19e0a8] text-xs font-bold mb-8 uppercase tracking-widest animate-pulse">
+            Beta Privada · WhatsApp + IA
+        </div>
+        <h1 class="text-5xl md:text-7xl font-display mb-8 leading-[1.1] tracking-tighter">
+            Tu claridad financiera, <br><span class="gradient-text">a un mensaje.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+            Olvida las planillas tediosas. Rendi utiliza Inteligencia Artificial para que registrar tus gastos sea tan fácil como hablar por WhatsApp.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="#" class="btn-primary px-10 py-4 rounded-2xl font-bold text-lg w-full sm:w-auto text-center">Probar Rendi</a>
+            <p class="text-xs text-gray-500 max-w-[200px] text-left hidden sm:block font-medium italic">Beta cerrada: +500 usuarios tomando el control.</p>
         </div>
     </header>
 
-    <main class="w-full max-w-4xl text-center py-8 sm:py-10 md:py-12 relative z-10">
-        <div class="inline-block px-3 py-1 rounded-full bg-[#19e0a8]/10 text-[#11b68a] text-[11px] sm:text-xs font-bold mb-5 md:mb-6 tracking-[0.25em] uppercase">
-            WhatsApp + IA + Finanzas
-        </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight text-gray-100 mb-6 sm:mb-7 md:mb-8 leading-[1.05] md:leading-[1.1]">
-            Chau a las planillas.<br>Hola a <span class="text-[#19e0a8]">WhatsApp.</span>
-        </h1>
-        
-           <!-- párrafo actualizado — tono emocional/manifesto -->
-        <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-14 px-2 font-medium leading-relaxed md:leading-loose flex flex-col items-center">
-            <span class="manifesto-line">Diseñado para los que siempre dicen <em class="not-italic text-white font-bold">"¿a dónde se fue la plata?"</em></span>
-            
-            <span class="manifesto-line mt-2 md:mt-3">Con Rendi, la respuesta llega sola.</span>
-        </p>
-
-
-        <div class="neo-card w-full p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-16 justify-center">
-            <div class="text-center md:text-left space-y-2">
-                <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Estado del Sistema</p>
-                <h3 class="text-xl sm:text-2xl font-bold flex items-center justify-center md:justify-start gap-3">
-                    Beta Privada 
-                    <span class="flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-[#19e0a8] opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-[#19e0a8]"></span>
-                    </span>
-                </h3>
+    <section id="que-es" class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="glass-card p-1 rounded-[32px]">
+                <img src="https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&q=80&w=800" alt="Dashboard" class="rounded-[28px] opacity-80">
             </div>
-            <div class="h-px md:h-12 w-full max-w-[160px] md:w-px md:max-w-none bg-gray-100/70"></div>
-            <a href="#" class="btn-mint w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 rounded-2xl text-black font-extrabold text-base sm:text-lg uppercase tracking-tight">
-                QUIERO PROBARLO
-            </a>
+            <div>
+                <h2 class="text-3xl md:text-5xl font-display mb-6 leading-tight">No es una app más, es tu <span class="text-[#19e0a8]">copiloto.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 font-light">
+                    Rendi no te obliga a aprender un sistema nuevo. Analizamos tus mensajes de gastos en tiempo real, los categorizamos automáticamente y te entregamos reportes sin que tengas que abrir una sola planilla.
+                </p>
+                <ul class="space-y-4 font-semibold">
+                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✔</span> Categorización inteligente con IA</li>
+                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✔</span> Sin apps pesadas ni registros lentos</li>
+                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✔</span> Soporte multi-moneda nativo</li>
+                </ul>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="hidden w-full max-w-6xl border-t border-black/5 pt-12">
-        <div class="space-y-2 text-center md:text-right">
-            <p class="mono opacity-40 uppercase">Dashboard</p>
-            <a href="https://rendi-dashboard.vercel.app" class="text-sm font-bold underline hover:text-[#19e0a8]">Acceso Usuarios →</a>
+    <section id="como-funciona" class="bg-white/5 py-24">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-display mb-4">Finanzas en tres pasos</h2>
+            <p class="text-gray-400 font-light">Diseñado para la velocidad del mundo real.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-10 rounded-3xl text-center">
+                <div class="text-4xl mb-6">💬</div>
+                <h3 class="text-xl font-extrabold mb-4 italic">1. Registra</h3>
+                <p class="text-gray-400 text-sm font-light">Envía un WhatsApp: "Almuerzo 55.000". Así de simple.</p>
+            </div>
+            <div class="glass-card p-10 rounded-3xl text-center">
+                <div class="text-4xl mb-6">🤖</div>
+                <h3 class="text-xl font-extrabold mb-4 italic">2. Procesa</h3>
+                <p class="text-gray-400 text-sm font-light">Nuestra IA identifica monto, moneda y categoría al instante.</p>
+            </div>
+            <div class="glass-card p-10 rounded-3xl text-center">
+                <div class="text-4xl mb-6">📊</div>
+                <h3 class="text-xl font-extrabold mb-4 italic">3. Visualiza</h3>
+                <p class="text-gray-400 text-sm font-light">Accede a tu dashboard para entender tus hábitos reales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="seguridad" class="max-w-5xl mx-auto text-center">
+        <div class="glass-card p-12 rounded-[40px] border-[#19e0a8]/20">
+            <h2 class="text-3xl font-display mb-6">Seguridad y Privacidad</h2>
+            <p class="text-gray-400 mb-10 leading-relaxed font-light">
+                Tus datos son sagrados. En Rendi, la privacidad es nuestra base. Tus mensajes están protegidos y <strong>nunca vendemos tu información a terceros</strong>. Utilizamos encriptación de grado bancario para asegurar tu vida financiera.
+            </p>
+            <div class="inline-flex items-center gap-4 p-4 bg-white/5 rounded-2xl text-left max-w-xl">
+                <div class="text-2xl">📱</div>
+                <p class="text-[11px] text-gray-500 leading-normal uppercase tracking-wider mono">
+                    Uso de WhatsApp: Operamos bajo la API oficial de WhatsApp Business. Solo enviamos notificaciones o reportes con tu consentimiento explícito. Sin spam.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/10 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 px-6 mb-20">
+            <div class="col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="bg-[#19e0a8] text-black font-extrabold w-6 h-6 flex items-center justify-center rounded font-display text-xs">R</div>
+                    <span class="text-lg font-bold font-display tracking-tighter">RENDI</span>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">Simplificando las finanzas personales en Paraguay y el mundo.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-[#19e0a8]">Contacto</h4>
+                <p class="text-gray-400 text-sm mb-2 font-medium">Email: <a href="mailto:contacto@rendi.pro" class="hover:text-white transition">contacto@rendi.pro</a></p>
+                <p class="text-gray-400 text-sm font-medium">Web: <a href="https://rendi.pro" class="hover:text-white transition">rendi.pro</a></p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-xs tracking-widest text-gray-600">Legal</h4>
+                <ul class="text-gray-400 text-sm space-y-3 font-medium">
+                    <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-[10px] text-gray-700 mono uppercase tracking-[0.3em]">
+            © 2026 RENDI. CONSTRUIDO PARA EL FUTURO FINANCIERO.
         </div>
     </footer>
 
-<script>
-    const glow = document.querySelector('.cursor-glow');
-    const card = document.querySelector('.neo-card');
-    const moneyFlow = document.querySelector('.money-flow');
-
-    function randomAmount() {
-        const value = Math.floor(25000 + Math.random() * 975000);
-        return value.toLocaleString('es-PY');
-    }
-
-    function spawnMoneyTick() {
-        if (!moneyFlow) return;
-
-        const tick = document.createElement('span');
-        const isIncome = Math.random() > 0.52;
-        const prefix = isIncome ? '+ Gs. ' : '- Gs. ';
-        tick.className = `money-tick ${isIncome ? 'money-in' : 'money-out'}`;
-        tick.textContent = `${prefix}${randomAmount()}`;
-
-        const startX = 6 + Math.random() * 88;
-        const startY = 14 + Math.random() * 72;
-        const dx = (Math.random() * 280 - 140).toFixed(0);
-        const dy = (Math.random() * -220 - 30).toFixed(0);
-        const size = (window.innerWidth < 768 ? 12 : 14) + Math.random() * 8;
-        const dur = 6 + Math.random() * 3.5;
-
-        tick.style.left = `${startX}%`;
-        tick.style.top = `${startY}%`;
-        tick.style.fontSize = `${size.toFixed(1)}px`;
-        tick.style.setProperty('--dx', `${dx}px`);
-        tick.style.setProperty('--dy', `${dy}px`);
-        tick.style.setProperty('--dur', `${dur.toFixed(2)}s`);
-
-        moneyFlow.appendChild(tick);
-        tick.addEventListener('animationend', () => tick.remove());
-    }
-
-    for (let i = 0; i < 6; i += 1) {
-        setTimeout(spawnMoneyTick, i * 420);
-    }
-    setInterval(spawnMoneyTick, 1400);
-
-    document.addEventListener('mousemove', (event) => {
-        glow.style.opacity = '1';
-        glow.style.transform = `translate(${event.clientX - 160}px, ${event.clientY - 160}px)`;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        glow.style.opacity = '0';
-    });
-
-    if (card) {
-        card.addEventListener('mousemove', (event) => {
-            const rect = card.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            const rotateY = ((x / rect.width) - 0.5) * 8;
-            const rotateX = (0.5 - (y / rect.height)) * 8;
-            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            card.style.boxShadow = '0 24px 45px rgba(0,0,0,0.35)';
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
-            card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.25)';
-        });
-    }
-</script>
 </body>
 </html>
