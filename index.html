@@ -86,22 +86,163 @@
         </div>
     </header>
 
-    <section id="que-es" class="max-w-7xl mx-auto">
+    <section id="que-es" class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="glass-card p-1 rounded-[32px]">
-                <img src="https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&q=80&w=800" alt="Dashboard" class="rounded-[28px] opacity-80">
+
+            <!-- Chat mockup side -->
+            <div class="relative">
+                <!-- Glow -->
+                <div class="absolute -inset-6 bg-[#19e0a8]/8 rounded-[48px] blur-3xl pointer-events-none"></div>
+
+                <!-- Phone frame -->
+                <div class="relative mx-auto max-w-[320px]">
+                    <!-- Phone shell -->
+                    <div class="bg-[#0d1117] border border-white/10 rounded-[36px] overflow-hidden shadow-2xl">
+
+                        <!-- Status bar -->
+                        <div class="bg-[#111827] px-5 pt-4 pb-2 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-[#19e0a8] flex items-center justify-center">
+                                    <span class="text-black font-extrabold text-xs font-display">R</span>
+                                </div>
+                                <div>
+                                    <p class="text-white text-xs font-bold leading-none">Rendi</p>
+                                    <p class="text-[#19e0a8] text-[9px] font-medium mt-0.5">en línea</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-1.5">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#19e0a8]"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#19e0a8]/40"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#19e0a8]/20"></div>
+                            </div>
+                        </div>
+
+                        <!-- Chat messages -->
+                        <div class="bg-[#0a0f1a] px-4 py-5 space-y-3 min-h-[360px]">
+
+                            <!-- User message 1 -->
+                            <div class="flex justify-end">
+                                <div class="bg-[#19e0a8]/20 border border-[#19e0a8]/20 text-white text-xs rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[75%]">
+                                    Almuerzo 55.000
+                                    <span class="block text-[9px] text-gray-500 mt-1 text-right">10:32</span>
+                                </div>
+                            </div>
+
+                            <!-- Bot reply 1 -->
+                            <div class="flex justify-start">
+                                <div class="bg-[#111827] border border-white/5 text-gray-300 text-xs rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
+                                    <p class="mb-2">✅ Registrado</p>
+                                    <div class="bg-white/5 rounded-xl p-2.5 space-y-1.5">
+                                        <div class="flex justify-between text-[10px]">
+                                            <span class="text-gray-500">Categoría</span>
+                                            <span class="text-white font-semibold">Alimentación</span>
+                                        </div>
+                                        <div class="flex justify-between text-[10px]">
+                                            <span class="text-gray-500">Monto</span>
+                                            <span class="text-[#19e0a8] font-bold">Gs. 55.000</span>
+                                        </div>
+                                        <div class="flex justify-between text-[10px]">
+                                            <span class="text-gray-500">Moneda</span>
+                                            <span class="text-white font-semibold">PYG</span>
+                                        </div>
+                                    </div>
+                                    <span class="block text-[9px] text-gray-600 mt-2">10:32</span>
+                                </div>
+                            </div>
+
+                            <!-- User message 2 -->
+                            <div class="flex justify-end">
+                                <div class="bg-[#19e0a8]/20 border border-[#19e0a8]/20 text-white text-xs rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[75%]">
+                                    Taxi $8
+                                    <span class="block text-[9px] text-gray-500 mt-1 text-right">14:17</span>
+                                </div>
+                            </div>
+
+                            <!-- Bot reply 2 -->
+                            <div class="flex justify-start">
+                                <div class="bg-[#111827] border border-white/5 text-gray-300 text-xs rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
+                                    <p class="mb-2">✅ Registrado</p>
+                                    <div class="bg-white/5 rounded-xl p-2.5 space-y-1.5">
+                                        <div class="flex justify-between text-[10px]">
+                                            <span class="text-gray-500">Categoría</span>
+                                            <span class="text-white font-semibold">Transporte</span>
+                                        </div>
+                                        <div class="flex justify-between text-[10px]">
+                                            <span class="text-gray-500">Monto</span>
+                                            <span class="text-[#19e0a8] font-bold">USD 8.00</span>
+                                        </div>
+                                    </div>
+                                    <span class="block text-[9px] text-gray-600 mt-2">14:17</span>
+                                </div>
+                            </div>
+
+                            <!-- Typing indicator -->
+                            <div class="flex justify-start">
+                                <div class="bg-[#111827] border border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-bounce" style="animation-delay:0ms"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-bounce" style="animation-delay:150ms"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500 animate-bounce" style="animation-delay:300ms"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Input bar -->
+                        <div class="bg-[#111827] border-t border-white/5 px-4 py-3 flex items-center gap-3">
+                            <div class="flex-1 bg-white/5 rounded-full px-4 py-2 text-[11px] text-gray-600 font-light">Escribe tu gasto...</div>
+                            <div class="w-8 h-8 rounded-full bg-[#19e0a8] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Floating stat badge -->
+                    <div class="absolute -bottom-4 -right-6 glass-card px-4 py-3 rounded-2xl flex items-center gap-3 border border-[#19e0a8]/20 shadow-lg">
+                        <div class="w-8 h-8 rounded-xl bg-[#19e0a8]/15 flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-gray-500 uppercase tracking-wider font-bold">Gastos del mes</p>
+                            <p class="text-sm font-extrabold text-white">Gs. 2.340.000</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Text side -->
             <div>
-                <h2 class="text-3xl md:text-5xl font-display mb-6 leading-tight">Una forma más simple de <span class="text-[#19e0a8]">entender tus gastos.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 font-light">
-                    Rendi no te obliga a aprender un sistema nuevo. Analizamos tus mensajes de gastos en tiempo real, los categorizamos automáticamente y te entregamos reportes sin que tengas que abrir una sola planilla.
+                <span class="inline-block text-[#19e0a8] text-xs font-bold uppercase tracking-widest mb-5 opacity-70">Qué es Rendi</span>
+                <h2 class="text-3xl md:text-5xl font-display mb-6 leading-tight">
+                    Una forma más simple de<br><span class="text-[#19e0a8]">entender tus gastos.</span>
+                </h2>
+                <p class="text-gray-400 text-base mb-10 font-light leading-relaxed">
+                    Rendi no te obliga a aprender un sistema nuevo. Analizamos tus mensajes en tiempo real, los categorizamos automáticamente y te entregamos reportes sin abrir una sola planilla.
                 </p>
-                <ul class="space-y-4 font-semibold">
-                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✓</span> Categorización inteligente con IA</li>
-                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✓</span> Sin apps pesadas ni registros lentos</li>
-                    <li class="flex items-center gap-3"><span class="text-[#19e0a8] text-xl">✓</span> Soporte multi-moneda nativo</li>
+
+                <!-- Feature list -->
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4">
+                        <div class="shrink-0 w-8 h-8 rounded-lg bg-[#19e0a8]/10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-200">Categorización inteligente con IA</span>
+                    </li>
+                    <li class="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4">
+                        <div class="shrink-0 w-8 h-8 rounded-lg bg-[#19e0a8]/10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-200">Sin apps pesadas ni registros lentos</span>
+                    </li>
+                    <li class="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4">
+                        <div class="shrink-0 w-8 h-8 rounded-lg bg-[#19e0a8]/10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-200">Soporte multi-moneda nativo</span>
+                    </li>
                 </ul>
             </div>
+
         </div>
     </section>
 
