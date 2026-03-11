@@ -105,27 +105,69 @@
         </div>
     </section>
 
-    <section id="como-funciona" class="bg-white/5 py-24">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-display mb-4">Finanzas en tres pasos</h2>
-            <p class="text-gray-400 font-light">Diseñado para la velocidad del mundo real.</p>
+    <section id="como-funciona" class="relative py-28 overflow-hidden">
+        <!-- Subtle background glow -->
+        <div class="absolute inset-0 bg-white/[0.02] pointer-events-none"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[#19e0a8]/30 to-transparent"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[#19e0a8]/20 to-transparent"></div>
+
+        <!-- Header -->
+        <div class="max-w-7xl mx-auto text-center mb-16 px-6">
+            <span class="inline-block text-[#19e0a8] text-xs font-bold uppercase tracking-widest mb-4 opacity-70">Cómo funciona</span>
+            <h2 class="text-4xl md:text-5xl font-display mb-4">Finanzas en <span class="text-[#19e0a8]">tres pasos.</span></h2>
+            <p class="text-gray-500 font-light">Diseñado para la velocidad del mundo real.</p>
         </div>
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-10 rounded-3xl text-center">
-                <div class="text-4xl mb-6">💬</div>
-                <h3 class="text-xl font-extrabold mb-4 italic">1. Registra</h3>
-                <p class="text-gray-400 text-sm font-light">Envía un WhatsApp: "Almuerzo 55.000". Así de simple.</p>
+
+        <!-- Steps -->
+        <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-6 relative">
+
+            <!-- Connector line (desktop only) -->
+            <div class="hidden md:block absolute top-10 left-[calc(16.66%+20px)] right-[calc(16.66%+20px)] h-[1px] bg-gradient-to-r from-[#19e0a8]/40 via-[#19e0a8]/20 to-[#19e0a8]/40 pointer-events-none"></div>
+
+            <!-- Step 1 -->
+            <div class="glass-card rounded-3xl p-8 text-center relative group">
+                <div class="relative inline-flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-[#19e0a8]/10 border border-[#19e0a8]/20 flex items-center justify-center group-hover:bg-[#19e0a8]/20 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <span class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#19e0a8] text-black text-[10px] font-extrabold flex items-center justify-center">1</span>
+                </div>
+                <h3 class="text-lg font-extrabold mb-3 text-white">Registra</h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">Enviá un WhatsApp: <span class="text-gray-300 font-medium">"Almuerzo 55.000"</span>. Así de simple.</p>
             </div>
-            <div class="glass-card p-10 rounded-3xl text-center">
-                <div class="text-4xl mb-6">🤖</div>
-                <h3 class="text-xl font-extrabold mb-4 italic">2. Procesa</h3>
-                <p class="text-gray-400 text-sm font-light">Nuestra IA identifica monto, moneda y categoría al instante.</p>
+
+            <!-- Step 2 -->
+            <div class="glass-card rounded-3xl p-8 text-center relative group" style="border-color: rgba(25,224,168,0.15);">
+                <div class="relative inline-flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-[#19e0a8]/15 border border-[#19e0a8]/30 flex items-center justify-center group-hover:bg-[#19e0a8]/25 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/>
+                        </svg>
+                    </div>
+                    <span class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#19e0a8] text-black text-[10px] font-extrabold flex items-center justify-center">2</span>
+                </div>
+                <h3 class="text-lg font-extrabold mb-3 text-white">Procesa</h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">Nuestra IA identifica <span class="text-gray-300 font-medium">monto, moneda y categoría</span> al instante.</p>
+                <!-- Highlighted tag -->
+                <span class="mt-4 inline-block text-[10px] font-bold uppercase tracking-wider text-[#19e0a8] bg-[#19e0a8]/10 px-3 py-1 rounded-full">IA en tiempo real</span>
             </div>
-            <div class="glass-card p-10 rounded-3xl text-center">
-                <div class="text-4xl mb-6">📊</div>
-                <h3 class="text-xl font-extrabold mb-4 italic">3. Visualiza</h3>
-                <p class="text-gray-400 text-sm font-light">Accede a tu dashboard para entender tus hábitos reales.</p>
+
+            <!-- Step 3 -->
+            <div class="glass-card rounded-3xl p-8 text-center relative group">
+                <div class="relative inline-flex items-center justify-center mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-[#19e0a8]/10 border border-[#19e0a8]/20 flex items-center justify-center group-hover:bg-[#19e0a8]/20 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#19e0a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <span class="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#19e0a8] text-black text-[10px] font-extrabold flex items-center justify-center">3</span>
+                </div>
+                <h3 class="text-lg font-extrabold mb-3 text-white">Visualiza</h3>
+                <p class="text-gray-400 text-sm font-light leading-relaxed">Accedé a tu dashboard para entender tus <span class="text-gray-300 font-medium">hábitos financieros reales</span>.</p>
             </div>
+
         </div>
     </section>
 
